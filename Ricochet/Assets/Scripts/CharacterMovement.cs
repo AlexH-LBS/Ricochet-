@@ -54,6 +54,7 @@ public class CharacterMovement : MonoBehaviour
     public void OnMovement(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        Debug.Log(value);
     }
 
     void MovePlayer()

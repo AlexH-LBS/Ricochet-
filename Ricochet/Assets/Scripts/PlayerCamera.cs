@@ -24,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
         //Temp setup, see how the values work
         //x + delta.x;
 
-        Debug.Log(delta);
+        Debug.Log(delta.x);
     }
 
     public void OnLook(InputValue value)
