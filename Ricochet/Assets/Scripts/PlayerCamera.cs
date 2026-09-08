@@ -9,7 +9,7 @@ public class PlayerCamera : MonoBehaviour
     public float sensitivity;
     public float x;
     public float y;
-    public DeltaControl delta;
+    public DeltaControl delta { get; protected set; }
 
     Transform xRotation;
     Vector2 lookInput;
@@ -22,7 +22,7 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         //Temp setup, see how the values work
-        //x + delta.x;
+        x += delta.x;
 
         Debug.Log(delta.x);
     }
