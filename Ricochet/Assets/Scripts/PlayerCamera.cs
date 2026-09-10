@@ -7,11 +7,10 @@ public class PlayerCamera : MonoBehaviour
 {
 
     public float sensitivity;
-    public float x;
-    public float y;
-    public DeltaControl delta { get; protected set; }
+    public Transform camera;
 
-    Transform xRotation;
+
+    float xRotation = 0f;
     Vector2 lookInput;
     void Start()
     {
@@ -21,13 +20,10 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
-        //Temp setup, see how the values work
-        x += delta.x;
-
-        Debug.Log(delta.x);
+        HandleMouseLook();
     }
 
-    public void OnLook(InputValue value)
+    public void OnCameraControl(InputValue value)
     {
         lookInput = value.Get<Vector2>();
     }
@@ -35,7 +31,18 @@ public class PlayerCamera : MonoBehaviour
     void HandleMouseLook()
     {
         //make own, euler is 3 inputs of rotation xyz. eq for z, mouse for xy, clamp y -89,89. clamp z -45,45. use deltacontrol (for mouse speed)
-        
+
+        float mouseX = lookInput.x * sensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * sensitivity * Time.deltaTime;
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+
+        camera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        transform.Rotate(Vector3.up * mouseX);
+
+
     }
 
 }

@@ -6,6 +6,9 @@ public class CharacterMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    public float runMultiplier;
+
+    bool isRunning;
 
     Vector2 moveInput;
 
@@ -31,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         checkTerrain();
+
     }
 
     private void FixedUpdate()
@@ -44,6 +48,11 @@ public class CharacterMovement : MonoBehaviour
     {
         if(isGrounded)
             rb.AddForce(new Vector3(0,jumpForce,0), ForceMode.Impulse);
+    }
+
+    void OnRun()
+    {
+        isRunning = true;
     }
     
     void checkTerrain()
@@ -59,9 +68,15 @@ public class CharacterMovement : MonoBehaviour
 
     void MovePlayer()
     {
+
+        //u gotta rewrite this better
         Vector3 direction = transform.right * moveInput.x + transform.forward * moveInput.y;
         direction.Normalize();
-        rb.linearVelocity = new Vector3(direction.x * moveSpeed, rb.linearVelocity.y, direction.z * moveSpeed);
+        if (isRunning)
+            rb.linearVelocity = new Vector3(direction.x * moveSpeed * runMultiplier, rb.linearVelocity.y, direction.z * moveSpeed);
+        else
+            rb.linearVelocity = new Vector3(direction.x * moveSpeed, rb.linearVelocity.y, direction.z * moveSpeed);
+
 
     }
 }
