@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
   moveSpeed: 5
   jumpForce: 5
-  runMultiplier: 0
+  runMultiplier: 2
   terrainCheck: {fileID: 830609900}
   altitude: 0
   terrainMask:

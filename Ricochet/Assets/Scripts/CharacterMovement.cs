@@ -14,6 +14,8 @@ public class CharacterMovement : MonoBehaviour
 
     PlayerInput playerInput;
 
+    InputActionReference run;
+
     //terrain
     public Transform terrainCheck;
     public float altitude;
@@ -52,7 +54,10 @@ public class CharacterMovement : MonoBehaviour
 
     void OnRun()
     {
-        isRunning = true;
+        if (run.action.IsPressed())
+            isRunning = true;
+        else
+            isRunning=false;
     }
     
     void checkTerrain()
