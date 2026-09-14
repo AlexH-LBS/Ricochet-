@@ -118,6 +118,15 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""76123c7c-9a7b-487b-bbf6-e15820789fa2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -197,6 +206,17 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""action"": ""Camera Control"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54afb3b3-e2be-4a4a-a2a1-9c0a18b0d616"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +228,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_Moving_Jump = m_Moving.FindAction("Jump", throwIfNotFound: true);
         m_Moving_Movement = m_Moving.FindAction("Movement", throwIfNotFound: true);
         m_Moving_CameraControl = m_Moving.FindAction("Camera Control", throwIfNotFound: true);
+        m_Moving_Run = m_Moving.FindAction("Run", throwIfNotFound: true);
     }
 
     ~@PlayerMovement()
@@ -291,6 +312,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private readonly InputAction m_Moving_Jump;
     private readonly InputAction m_Moving_Movement;
     private readonly InputAction m_Moving_CameraControl;
+    private readonly InputAction m_Moving_Run;
     /// <summary>
     /// Provides access to input actions defined in input action map "Moving".
     /// </summary>
@@ -314,6 +336,10 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Moving/CameraControl".
         /// </summary>
         public InputAction @CameraControl => m_Wrapper.m_Moving_CameraControl;
+        /// <summary>
+        /// Provides access to the underlying input action "Moving/Run".
+        /// </summary>
+        public InputAction @Run => m_Wrapper.m_Moving_Run;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -349,6 +375,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @CameraControl.started += instance.OnCameraControl;
             @CameraControl.performed += instance.OnCameraControl;
             @CameraControl.canceled += instance.OnCameraControl;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
         }
 
         /// <summary>
@@ -369,6 +398,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @CameraControl.started -= instance.OnCameraControl;
             @CameraControl.performed -= instance.OnCameraControl;
             @CameraControl.canceled -= instance.OnCameraControl;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
         }
 
         /// <summary>
@@ -430,5 +462,12 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCameraControl(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Run" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRun(InputAction.CallbackContext context);
     }
 }
